@@ -1,5 +1,5 @@
 file_reader = open("cv.txt", "r")
-file_writer = open("cv-fixed.txt", "a")
+file_writer = open("cv.txt", "a")
 
 phrases = []
 all_lines = file_reader.readlines()
