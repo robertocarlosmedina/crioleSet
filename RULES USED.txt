@@ -1,0 +1,10 @@
+Regras utilizadas no processo de levantamento da Dataset:
+    
+    1 - Palavras em português que terminan com "o" no fim eu o retirei.
+        Ex: Empreendimento -> Empreendiment
+    2 - Palavras terminada em português por "ado" subestitui o final por "ód"
+        Ex: representado -> representód; Sentado -> Sentód
+    3 - Dependendo da terminologia de algumas palavras como por exemplo isso eu o 
+    substitui o "o" por "e"
+        Ex: disso -> disse
+        
