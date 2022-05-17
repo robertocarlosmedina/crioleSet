@@ -15,8 +15,8 @@ en_translations = []
 [en_translations.append(row["English"]) for _ , row in data.iterrows()]
 
 index = 1
-# print(cv_translations)
 for pt, cv, en in zip(pt_translations, cv_translations, en_translations):
+    cv, pt, en = cv.strip(), pt.strip(), en.strip()
     print(f"{index}: {cv}: {pt}")
     cv_file_writer.write(f"{cv}\n")
     pt_file_writer.write(f"{pt}\n")
@@ -26,5 +26,3 @@ for pt, cv, en in zip(pt_translations, cv_translations, en_translations):
 cv_file_writer.close()
 pt_file_writer.close()
 en_file_writer.close()
-# print(pt_translations[0])
-# print(cv_translations[0])
