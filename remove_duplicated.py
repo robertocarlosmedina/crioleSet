@@ -1,5 +1,5 @@
-file_reader = open("cv.txt", "r")
-file_writer = open("cv.txt", "a")
+file_reader = open("train.en", "r")
+file_writer = open("train.en", "a")
 
 phrases = []
 all_lines = file_reader.readlines()
@@ -9,8 +9,8 @@ for line in all_lines:
     line = line[0:-1]
     if line not in phrases:
         phrases.append(line)
-    # else:
-    #     print(line[0:-1])
+    else:
+        print(line[0:-1])
 
 print(f"Toltal lines without duplicates: {len(phrases)}")
 for phrase in phrases:
