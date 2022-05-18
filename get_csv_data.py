@@ -1,4 +1,5 @@
 import pandas
+import unicodedata
 
 data = pandas.read_csv('CVEN-Dataset.csv')
 cv_train_file_writer = open("train.cv", "w")
@@ -42,6 +43,8 @@ for index, translations in enumerate(zip(cv_sentences[0:total_train],
                                          pt_sentences[0:total_train], en_sentences[0:total_train])):
     cv_sentence, pt_sentence, en_sentence = translations[0].strip(
     ), translations[1].strip(), translations[2].strip()
+    cv_sentence, pt_sentence, en_sentence = unicodedata.normalize("NFKD", cv_sentence), \
+        unicodedata.normalize("NFKD", pt_sentence), unicodedata.normalize("NFKD", en_sentence)
 
     # print(f"Index: {index+1}; CV:{cv_sentence}; EN: {en_sentence}")
     cv_train_file_writer.write(f"{cv_sentence}\n")
