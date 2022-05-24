@@ -24,10 +24,18 @@ class Get_CSV_Data:
         random.shuffle(self.all_sentences)
 
     def calculate_data_ammount(self, percentage: int) -> int:
+        """
+            According to the percentage passed, this method must return the 
+            amount of data that is need to get in the CSV file.
+        """
         ammount = (self.total_data * percentage) / 100
         return int(ammount)
 
     def get_train_data(self, total_train) -> None:
+        """
+            Writing the train data on the train data files 
+            (train.cv, train.pt and train.en)
+        """
         for translations in self.all_sentences[0:total_train]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
@@ -38,6 +46,10 @@ class Get_CSV_Data:
         print("All train data getted...")
 
     def get_test_data(self, total_test) -> None:
+        """
+            Writing the test data on the test data files 
+            (test.cv, test.pt and test.en)
+        """
         for translations in self.all_sentences[self.total_data-total_test*2:self.total_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
@@ -48,6 +60,10 @@ class Get_CSV_Data:
         print("All test data getted...")
 
     def get_val_data(self, total_val) -> None:
+        """
+            Writing the val data on the val data files 
+            (val.cv, val.pt and val.en)
+        """
         for translations in self.all_sentences[self.total_data-total_val*3:self.total_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
@@ -60,7 +76,8 @@ class Get_CSV_Data:
     def get_data(self, train_perc, test_perc, val_perc) -> None:
         """
             Calculate the ammount of data to for test, train and validation
-            according to the percentage
+            according to the percentage of eatch one, and then drop them in 
+            text files.
         """
         print("Getting data...")
         total_test = self.calculate_data_ammount(test_perc)
