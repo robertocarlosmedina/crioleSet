@@ -3,6 +3,7 @@ import random
 
 
 class Get_CSV_Data:
+    
     data = pandas.read_csv('CVEN-Dataset.csv')
     cv_train_file_writer = open("train.cv", "w")
     pt_train_file_writer = open("train.pt", "w")
@@ -31,7 +32,7 @@ class Get_CSV_Data:
         ammount = (self.total_data * percentage) / 100
         return int(ammount)
 
-    def get_train_data(self, total_train) -> None:
+    def get_train_data(self, total_train: int) -> None:
         """
             Writing the train data on the train data files 
             (train.cv, train.pt and train.en)
@@ -45,12 +46,12 @@ class Get_CSV_Data:
             self.en_train_file_writer.write(f"{en_sentence}\n")
         print("All train data getted...")
 
-    def get_test_data(self, total_test) -> None:
+    def get_test_data(self, total_test: int) -> None:
         """
             Writing the test data on the test data files 
             (test.cv, test.pt and test.en)
         """
-        for translations in self.all_sentences[self.total_data-total_test*2:self.total_data]:
+        for translations in self.all_sentences[self.total_data-total_test:self.total_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
@@ -59,12 +60,12 @@ class Get_CSV_Data:
             self.en_test_file_writer.write(f"{en_sentence}\n")
         print("All test data getted...")
 
-    def get_val_data(self, total_val) -> None:
+    def get_val_data(self, total_val: int) -> None:
         """
             Writing the val data on the val data files 
             (val.cv, val.pt and val.en)
         """
-        for translations in self.all_sentences[self.total_data-total_val*3:self.total_data]:
+        for translations in self.all_sentences[self.total_data-total_val:self.total_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
@@ -73,14 +74,14 @@ class Get_CSV_Data:
             self.en_val_file_writer.write(f"{en_sentence}\n")
         print("All validation data getted...")
 
-    def get_data(self, train_perc, test_perc, val_perc) -> None:
+    def get_data(self, train_perc: float, test_perc: float, val_perc: float) -> None:
         """
             Calculate the ammount of data to for test, train and validation
             according to the percentage of eatch one, and then drop them in 
             text files.
         """
         print("Getting data...")
-        total_test = self.calculate_data_ammount(test_perc)
+        total_test = int(self.calculate_data_ammount(test_perc)*1.5)
         total_train = self.calculate_data_ammount(train_perc)
         total_val = self.calculate_data_ammount(val_perc)
 
