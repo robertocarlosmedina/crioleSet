@@ -7,4 +7,5 @@ Regras utilizadas no processo de levantamento da Dataset:
     3 - Dependendo da terminologia de algumas palavras como por exemplo isso eu o 
     substitui o "o" por "e"
         Ex: disso -> disse
+    4 - mendly endnote
         

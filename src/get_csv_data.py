@@ -15,14 +15,15 @@ class Get_CSV_Data:
     pt_val_file_writer = open("val.pt", "w")
     en_val_file_writer = open("val.en", "w")
 
-    def __init__(self) -> None:
+    def __init__(self, random_data) -> None:
         self.all_sentences = [
             (row["Capverdian Creole"].strip(),
              row["Portuguese"].strip(), row["English"].strip())
             for _, row in self.data.iterrows()
         ]
         self.total_data = len(self.all_sentences)
-        random.shuffle(self.all_sentences)
+        if random_data:
+            random.shuffle(self.all_sentences)
 
     def calculate_data_ammount(self, percentage: int) -> int:
         """
@@ -80,8 +81,9 @@ class Get_CSV_Data:
             according to the percentage of eatch one, and then drop them in 
             text files.
         """
-        print("Getting data...")
-        total_test = int(self.calculate_data_ammount(test_perc)*1.5)
+        print(f"\n               CreolSet\n{'-'*40}")
+        print("\nGetting data...\n")
+        total_test = self.calculate_data_ammount(test_perc)
         total_train = self.calculate_data_ammount(train_perc)
         total_val = self.calculate_data_ammount(val_perc)
 
@@ -91,15 +93,17 @@ class Get_CSV_Data:
                 (total_train + total_test)
 
         print(
-            f" * {total_train} train data...\n * {total_test} test data...\n * {total_val} validation data..."
+            f" * {total_train} train data\n * {total_test} test data\n * {total_val} validation data"
         )
+        print(f"{'-'*25}\nTotal Data: {self.total_data}")
         self.get_train_data(total_train)
-        self.get_test_data(total_test)
+        self.get_test_data(int(total_test*1.5))
         self.get_val_data(total_val)
         self.close_all_file()
+        
 
     def close_all_file(self) -> None:
         self.cv_train_file_writer.close()
         self.pt_train_file_writer.close()
         self.en_train_file_writer.close()
-        print("Closing all files...")
+        print("Closing all files...\n")
