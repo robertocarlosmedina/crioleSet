@@ -4,7 +4,7 @@ import random
 
 class Get_CSV_Data:
     
-    data = pandas.read_csv('CVEN-Dataset.csv')
+    data = pandas.read_csv('CrioleSet.csv')
     cv_train_file_writer = open("train.cv", "w")
     pt_train_file_writer = open("train.pt", "w")
     en_train_file_writer = open("train.en", "w")
