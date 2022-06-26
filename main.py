@@ -3,7 +3,7 @@ from src.get_csv_data import Get_CSV_Data
 
 arg_pr = argparse.ArgumentParser()
 arg_pr.add_argument(
-    "-tr", "--train", required=False, type=int, choices=range(0, 101), default=99,
+    "-tr", "--train", required=False, type=int, choices=range(0, 101), default=99.84,
     help="Add an int percentage value to get from the dataset for the trains files. Value between (0-100)"
 )
 arg_pr.add_argument(
@@ -11,7 +11,7 @@ arg_pr.add_argument(
     help="Add an int percentage value to get from the dataset for the tests files. Value between (0-100)"
 )
 arg_pr.add_argument(
-    "-vl", "--val", required=False, type=int, choices=range(0, 101), default=4,
+    "-vl", "--val", required=False, type=int, choices=range(0, 101), default=3.7,
     help="Add an int percentage value to get from the dataset for the validation files. Value between (0-100)"
 )
 
