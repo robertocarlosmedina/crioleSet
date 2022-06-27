@@ -38,7 +38,7 @@ class Get_CSV_Data:
             Writing the train data on the train data files 
             (train.cv, train.pt and train.en)
         """
-        for translations in self.all_sentences[0:total_train]:
+        for translations in self.all_sentences[0:total_train-50]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
@@ -66,7 +66,7 @@ class Get_CSV_Data:
             Writing the val data on the val data files 
             (val.cv, val.pt and val.en)
         """
-        for translations in self.all_sentences[self.total_data-total_val:self.total_data]:
+        for translations in self.all_sentences[self.total_data-total_val-50:self.total_data-50]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
@@ -93,7 +93,7 @@ class Get_CSV_Data:
                 (total_train + total_test)
 
         print(
-            f" * {total_train} train data\n * {total_test} test data\n * {total_val} validation data"
+            f" * {total_train-50} train data\n * {total_test} test data\n * {total_val} validation data"
         )
         print(f"{'-'*25}\nTotal Data: {self.total_data}")
         self.get_train_data(total_train)
