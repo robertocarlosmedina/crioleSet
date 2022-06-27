@@ -11,7 +11,7 @@ arg_pr.add_argument(
     help="Add an int percentage value to get from the dataset for the tests files. Value between (0-100)"
 )
 arg_pr.add_argument(
-    "-vl", "--val", required=False, type=int, choices=range(0, 101), default=3.7,
+    "-vl", "--val", required=False, type=int, choices=range(0, 101), default=3.67,
     help="Add an int percentage value to get from the dataset for the validation files. Value between (0-100)"
 )
 
