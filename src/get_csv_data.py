@@ -22,6 +22,7 @@ class Get_CSV_Data:
             for _, row in self.data.iterrows()
         ]
         self.total_data = len(self.all_sentences)
+        self.start_test_data = 100
         if random_data:
             random.shuffle(self.all_sentences)
 
@@ -38,42 +39,43 @@ class Get_CSV_Data:
             Writing the train data on the train data files 
             (train.cv, train.pt and train.en)
         """
-        for translations in self.all_sentences[0:total_train-50]:
+        for translations in self.all_sentences[0:total_train-self.start_test_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
             self.cv_train_file_writer.write(f"{cv_sentence}\n")
             self.pt_train_file_writer.write(f"{pt_sentence}\n")
             self.en_train_file_writer.write(f"{en_sentence}\n")
-        print("All train data getted...")
-
-    def get_test_data(self, total_test: int) -> None:
+    
+    def get_test_data(self, total_test: int) -> int:
         """
             Writing the test data on the test data files 
             (test.cv, test.pt and test.en)
         """
-        for translations in self.all_sentences[self.total_data-total_test:self.total_data]:
+        test_data = self.all_sentences[self.total_data-total_test:self.total_data]
+        
+        for translations in test_data:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
             self.cv_test_file_writer.write(f"{cv_sentence}\n")
             self.pt_test_file_writer.write(f"{pt_sentence}\n")
             self.en_test_file_writer.write(f"{en_sentence}\n")
-        print("All test data getted...")
+
+        return len(test_data)
 
     def get_val_data(self, total_val: int) -> None:
         """
             Writing the val data on the val data files 
             (val.cv, val.pt and val.en)
         """
-        for translations in self.all_sentences[self.total_data-total_val-50:self.total_data-50]:
+        for translations in self.all_sentences[self.total_data-total_val-self.start_test_data:self.total_data-self.start_test_data]:
             cv_sentence, pt_sentence, en_sentence = translations[0], \
                 translations[1], translations[2]
 
             self.cv_val_file_writer.write(f"{cv_sentence}\n")
             self.pt_val_file_writer.write(f"{pt_sentence}\n")
             self.en_val_file_writer.write(f"{en_sentence}\n")
-        print("All validation data getted...")
 
     def get_data(self, train_perc: float, test_perc: float, val_perc: float) -> None:
         """
@@ -92,15 +94,18 @@ class Get_CSV_Data:
             total_train = total_train + self.total_data - \
                 (total_train + total_test)
 
+        self.get_train_data(total_train)
+        total_test_data = self.get_test_data(int(total_test*1.5))
+        self.get_val_data(total_val)
         print(
-            f" * {total_train-50} train data\n * {total_test} test data\n * {total_val} validation data"
+            f" * {total_train-self.start_test_data} train data\n * {total_test_data} \
+test data\n * {total_val} validation data"
         )
         print(f"{'-'*25}\nTotal Data: {self.total_data}")
-        self.get_train_data(total_train)
-        self.get_test_data(int(total_test*1.5))
-        self.get_val_data(total_val)
+        print("All train data getted...")
+        print("All validation data getted...")
+        print("All test data getted...")
         self.close_all_file()
-        
 
     def close_all_file(self) -> None:
         self.cv_train_file_writer.close()
