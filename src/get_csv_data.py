@@ -8,17 +8,20 @@ class Get_CSV_Data:
     cv_train_file_writer = open("train.cv", "w")
     pt_train_file_writer = open("train.pt", "w")
     en_train_file_writer = open("train.en", "w")
+    fr_train_file_writer = open("train.fr", "w")
     cv_test_file_writer = open("test.cv", "w")
     pt_test_file_writer = open("test.pt", "w")
     en_test_file_writer = open("test.en", "w")
+    fr_test_file_writer = open("test.fr", "w")
     cv_val_file_writer = open("val.cv", "w")
     pt_val_file_writer = open("val.pt", "w")
     en_val_file_writer = open("val.en", "w")
+    fr_val_file_writer = open("val.fr", "w")
 
     def __init__(self, random_data) -> None:
         self.all_sentences = [
-            (row["Capverdian Creole"].strip(),
-             row["Portuguese"].strip(), row["English"].strip())
+            (row["Capverdian Creole"].strip(), row["Portuguese"].strip(),
+              row["English"].strip(), row["French"].strip())
             for _, row in self.data.iterrows()
         ]
         self.total_data = len(self.all_sentences)
@@ -40,12 +43,13 @@ class Get_CSV_Data:
             (train.cv, train.pt and train.en)
         """
         for translations in self.all_sentences[0:total_train-self.start_test_data]:
-            cv_sentence, pt_sentence, en_sentence = translations[0], \
-                translations[1], translations[2]
+            cv_sentence, pt_sentence, en_sentence, fr_sentence = translations[0], \
+                translations[1], translations[2], translations[3]
 
             self.cv_train_file_writer.write(f"{cv_sentence}\n")
             self.pt_train_file_writer.write(f"{pt_sentence}\n")
             self.en_train_file_writer.write(f"{en_sentence}\n")
+            self.fr_train_file_writer.write(f"{fr_sentence}\n")
     
     def get_test_data(self, total_test: int) -> int:
         """
@@ -55,12 +59,13 @@ class Get_CSV_Data:
         test_data = self.all_sentences[self.total_data-total_test:self.total_data]
         
         for translations in test_data:
-            cv_sentence, pt_sentence, en_sentence = translations[0], \
-                translations[1], translations[2]
+            cv_sentence, pt_sentence, en_sentence, fr_sentence = translations[0], \
+                translations[1], translations[2], translations[3]
 
             self.cv_test_file_writer.write(f"{cv_sentence}\n")
             self.pt_test_file_writer.write(f"{pt_sentence}\n")
             self.en_test_file_writer.write(f"{en_sentence}\n")
+            self.fr_test_file_writer.write(f"{fr_sentence}\n")
 
         return len(test_data)
 
@@ -70,12 +75,13 @@ class Get_CSV_Data:
             (val.cv, val.pt and val.en)
         """
         for translations in self.all_sentences[self.total_data-total_val-self.start_test_data:self.total_data-self.start_test_data]:
-            cv_sentence, pt_sentence, en_sentence = translations[0], \
-                translations[1], translations[2]
+            cv_sentence, pt_sentence, en_sentence, fr_sentence= translations[0], \
+                translations[1], translations[2], translations[3]
 
             self.cv_val_file_writer.write(f"{cv_sentence}\n")
             self.pt_val_file_writer.write(f"{pt_sentence}\n")
             self.en_val_file_writer.write(f"{en_sentence}\n")
+            self.fr_val_file_writer.write(f"{fr_sentence}\n")
 
     def get_data(self, train_perc: float, test_perc: float, val_perc: float) -> None:
         """
